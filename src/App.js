@@ -29,39 +29,56 @@ const list = [
   },
 ];
 
+
+//Search Component
+const Search = () => {
+  return(
+  <div>
+    <label htmlFor="search">Search: </label>
+    <input id="search" type="text" />
+  </div>  
+)}
+
+//list item
+//Here we are extracting the render list which was previous in the App 
+//component and we are deffining it in a separate component or function
+//same thing is being done for the Search components
+
+const ListItem = ({item}) => {
+  return(
+  <li>
+    <span>
+      <a href={item.url}>{item.title}</a>
+    </span>
+    <span>{item.author}</span>
+    <span>{item.num_comments}</span>
+    <span>{item.points}</span>
+  </li>
+)}
+
+
+//List Component
+const List = () => {
+  return(
+  <ul>
+    {/* 
+      1.Swapped out the normal function for an arrow functio as a callback for the map function 
+      2.Map loops through our array of items and through the callback we are able to access each item in the array
+      3.We Render each item by passing it to the "ListItem" component as an "item" prop as shown in list 65 below
+    */}
+    { list.map( item => <ListItem key={item.objectID} item={item}/> ) }
+  </ul>
+)}
+
+
 function App() {
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h1>My Hacker Stories </h1>
-
-      <label htmlFor="search">Search: </label>
-      <input id="search" type="text" />
-
-      <hr />
-
-      <ul>
-        {list.map(function(item){
-          // By assisgning a key attribute to each list item's element,
-          // React can identify items if the list changes 
-          // (i.e if there is a re-ordering). It is best practice to use
-          // key as unique identifier rather than index of the array to
-          // ensure that the key is a stable(consistent) identifier. 
-          // Should the list change its order for example, React will not
-          // be able to identify the items properly when the index of the 
-          // array is used as key.
-          return <li key={item.objectID}>
-            <span>
-              <a href={item.url}>{item.title}</a>
-            </span>
-            <span>{item.author}</span>
-            <span>{item.num_comments}</span>
-            <span>{item.points}</span>
-            </li>;
-        })}
-      </ul>
-     
-   
-    </div>
+  <div style={{ textAlign: 'center' }}>
+    <h1>My Hacker Stories </h1>
+    <Search />
+    <hr />
+    <List />
+  </div>
   );
 }
 
